@@ -30,6 +30,7 @@ public class Users {
     @NotBlank
     @Column(unique = true)
     private String email;
+    @NotBlank
     private String password;
     @ManyToMany(fetch = EAGER)
     private Collection<Role> nameRole;

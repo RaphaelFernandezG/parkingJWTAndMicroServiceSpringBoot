@@ -40,7 +40,6 @@ public class VehicleService {
     @Autowired
     private final RoleRepository roleRepository;
 
-
     @Autowired
     private RestTemplate restTemplate;
 

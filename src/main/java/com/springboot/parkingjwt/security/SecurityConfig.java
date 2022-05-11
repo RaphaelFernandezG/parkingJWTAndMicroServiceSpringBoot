@@ -35,18 +35,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**").permitAll();
-        http.authorizeRequests().antMatchers(GET,"/users/**").hasAnyAuthority("USER");
-        http.authorizeRequests().antMatchers(POST,"/users/**").hasAnyAuthority("USER");
-        //http.authorizeRequests().antMatchers(POST,"**/email/**").hasRole("ADMIN");
-        http.authorizeRequests().antMatchers(POST,"/users/addUser").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(POST,"/users/sendEmail").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(GET,"/vehicle/**").hasAnyAuthority("USER");
+        http.authorizeRequests().antMatchers(GET,"/users/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(POST,"/users/**").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET,"/vehicle/listRegistrationVehicles").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET,"/vehicle/findVehicle/{idVehicle}").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET,"/vehicle/listVehicles").hasAnyAuthority("USER", "ADMIN");
         http.authorizeRequests().antMatchers(POST,"/vehicle/**").hasAnyAuthority("USER");
         //http.authorizeRequests().anyRequest().permitAll(); //permitimos todos los usuarios con el .permitAll()
         http.authorizeRequests().anyRequest().authenticated(); //para permitir solo los tipos de usuarios authenticados anteriormente
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+    /*el admin solo podra registrar entrada y salidas de vehiculos y consultar el listado de vehiculos
+    el admin podra registrar usuarios tipo user ya que solo existe por defecto 1 usuario tipo admin y no habra mas
+    podra buscar el detalle del vehiculo por id y el historial de salidas de los vehiculos*/
+
 
     @Bean
     @Override
