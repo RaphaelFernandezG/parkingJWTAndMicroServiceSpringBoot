@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -42,21 +44,41 @@ public class VehicleController {
         return vehicleService.delVehicle(vehicle);
     }
 
-    @GetMapping("/listVehicles")
+    @GetMapping(path = "/listVehicles", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Vehicle> listVehicles(){
         return vehicleService.listVehicle();
     }
 
-    @GetMapping(path = "/findVehicle/{idVehicle}")
+    @GetMapping(path = "/findVehicle/{idVehicle}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<Vehicle> findVehicleByID(@PathVariable("idVehicle")Long idVehicle){
         return vehicleService.findVehicleById(idVehicle);
     }
 
 
 
-    @GetMapping("/listRegistrationVehicles")
+    @GetMapping(path = "/listRegistrationVehicles", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RegistrationVehicles> listRegistrationVehicles(){
         return vehicleService.listRegistrationVehicles();
+    }
+
+    @GetMapping(path = "/listRegistrationVehiclesCant", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String,Object>> listRegistrationVehiclesConstants(){
+        return vehicleService.listRegistrationVehiclesCant();
+    }
+
+    @PostMapping(path = "/listRegistrationVehiclesConstantsByFecha", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String,Object>> listRegistrationVehiclesCantByFecha(@RequestParam(value = "ini") LocalDateTime ini,@RequestParam(value = "fin") LocalDateTime fin){
+        return vehicleService.listRegistrationVehiclesCantByFecha(ini, fin);
+    }
+
+    @GetMapping(path = "/listRegistrationVehiclesFirstTime", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String,Object>> listRegistrationVehiclesFirstTime(){
+        return vehicleService.listRegistrationVehiclesFirstTime();
+    }
+
+    @GetMapping(path = "/listRegistrationVehiclesMoreTimes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String,Object>> listRegistrationVehiclesMoreTimes(){
+        return vehicleService.listRegistrationVehiclesMoreTimes();
     }
 
 

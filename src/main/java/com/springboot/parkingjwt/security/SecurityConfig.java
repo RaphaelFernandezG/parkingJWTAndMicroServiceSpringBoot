@@ -37,10 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login/**", "/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET,"/users/**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(POST,"/users/**").hasAnyAuthority("ADMIN");
-        http.authorizeRequests().antMatchers(GET,"/vehicle/listRegistrationVehicles").hasAnyAuthority("ADMIN");
+        http.authorizeRequests().antMatchers(GET,"/vehicle/listRegistrationVehicles**").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(GET,"/vehicle/findVehicle/{idVehicle}").hasAnyAuthority("ADMIN");
         http.authorizeRequests().antMatchers(GET,"/vehicle/listVehicles").hasAnyAuthority("USER", "ADMIN");
-        http.authorizeRequests().antMatchers(POST,"/vehicle/**").hasAnyAuthority("USER");
+        http.authorizeRequests().antMatchers(GET,"/vehicle/").hasAnyAuthority("USER", "ADMIN");
+
         //http.authorizeRequests().anyRequest().permitAll(); //permitimos todos los usuarios con el .permitAll()
         http.authorizeRequests().anyRequest().authenticated(); //para permitir solo los tipos de usuarios authenticados anteriormente
         http.addFilter(customAuthenticationFilter);

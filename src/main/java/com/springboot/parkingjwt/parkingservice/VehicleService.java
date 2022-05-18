@@ -20,7 +20,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -130,6 +132,22 @@ public class VehicleService {
 
     public List<RegistrationVehicles> listRegistrationVehicles() {
         return registrationVehicleRepository.findAll();
+    }
+
+    public List<Map<String,Object>> listRegistrationVehiclesCant() {
+        return registrationVehicleRepository.listRegistrationVehiclesCant();
+    }
+
+    public List<Map<String,Object>> listRegistrationVehiclesCantByFecha(LocalDateTime ini, LocalDateTime fin) {
+        return registrationVehicleRepository.listRegistrationVehiclesCantByFecha(ini, fin);
+    }
+
+    public List<Map<String,Object>> listRegistrationVehiclesFirstTime() {
+        return registrationVehicleRepository.listRegistrationVehiclesFirstTime();
+    }
+
+    public List<Map<String,Object>> listRegistrationVehiclesMoreTimes() {
+        return registrationVehicleRepository.listRegistrationVehiclesMoreTimes();
     }
 
 
