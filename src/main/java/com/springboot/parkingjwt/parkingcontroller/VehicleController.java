@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -61,25 +62,25 @@ public class VehicleController {
         return vehicleService.listRegistrationVehicles();
     }
 
-    @GetMapping(path = "/listRegistrationVehiclesCant", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Map<String,Object>> listRegistrationVehiclesConstants(){
-        return vehicleService.listRegistrationVehiclesCant();
+
+    /*regresar los 10 vehiculos que mas veces se han registrado en el parqueadero
+    la consulta anterior debe permitir un rango de fecha desde y hasta, pueden ser opcionales los 2*/
+    @PostMapping(path = "/listRegistrationVehiclesCant", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map<String,Object>> listRegistrationVehiclesConstants(@RequestParam(required = false) Date ini, @RequestParam(required = false) Date fin){
+        System.out.println("Fecha inicio "+ini+" Fecha fin: "+fin);
+        return vehicleService.listRegistrationVehiclesCant(ini, fin);
     }
 
-    @PostMapping(path = "/listRegistrationVehiclesConstantsByFecha", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Map<String,Object>> listRegistrationVehiclesCantByFecha(@RequestParam(value = "ini") LocalDateTime ini,@RequestParam(value = "fin") LocalDateTime fin){
-        return vehicleService.listRegistrationVehiclesCantByFecha(ini, fin);
-    }
-
+    /*verificar de los vehiculos parqueados cuales son por primera vez y cuales no*/
     @GetMapping(path = "/listRegistrationVehiclesFirstTime", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String,Object>> listRegistrationVehiclesFirstTime(){
         return vehicleService.listRegistrationVehiclesFirstTime();
     }
 
-    @GetMapping(path = "/listRegistrationVehiclesMoreTimes", produces = MediaType.APPLICATION_JSON_VALUE)
+    /*@GetMapping(path = "/listRegistrationVehiclesMoreTimes", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Map<String,Object>> listRegistrationVehiclesMoreTimes(){
         return vehicleService.listRegistrationVehiclesMoreTimes();
-    }
+    }*/
 
 
 

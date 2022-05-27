@@ -20,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -134,21 +136,26 @@ public class VehicleService {
         return registrationVehicleRepository.findAll();
     }
 
-    public List<Map<String,Object>> listRegistrationVehiclesCant() {
-        return registrationVehicleRepository.listRegistrationVehiclesCant();
+    public List<Map<String,Object>> listRegistrationVehiclesCant(Date ini, Date fin) {
+        if(ini == null){
+            ini= Date.valueOf("0000-01-01");
+        }if(fin == null){
+            fin= Date.valueOf(LocalDate.now());
+        }
+        return registrationVehicleRepository.listRegistrationVehiclesCant(ini, fin);
     }
 
-    public List<Map<String,Object>> listRegistrationVehiclesCantByFecha(LocalDateTime ini, LocalDateTime fin) {
+    /*public List<Map<String,Object>> listRegistrationVehiclesCantByFecha(LocalDateTime ini, LocalDateTime fin) {
         return registrationVehicleRepository.listRegistrationVehiclesCantByFecha(ini, fin);
-    }
+    }*/
 
     public List<Map<String,Object>> listRegistrationVehiclesFirstTime() {
         return registrationVehicleRepository.listRegistrationVehiclesFirstTime();
     }
 
-    public List<Map<String,Object>> listRegistrationVehiclesMoreTimes() {
+    /*public List<Map<String,Object>> listRegistrationVehiclesMoreTimes() {
         return registrationVehicleRepository.listRegistrationVehiclesMoreTimes();
-    }
+    }*/
 
 
 
